@@ -26,3 +26,21 @@ const userSlice = createSlice({
 export const {} = userSlice.actions;
 
 export default userSlice.reducer;
+
+export const userLogin = (user) => {
+  return (dispatch) => {
+    dispatch(userSlice.actions.login(user));
+  };
+};
+
+export const logout = () => {
+  return (dispatch) => {
+    dispatch(userSlice.actions.logout());
+  };
+};
+
+export const updateProfile = (userInfo) => {
+  return (dispatch) => {
+    dispatch(userSlice.actions.updateProfile(userInfo));
+  };
+};
