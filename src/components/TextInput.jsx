@@ -17,6 +17,7 @@ const TextInput = React.forwardRef(
             ref={ref}
             className={`bg-secondary rounded border border-[#66666690] outline-none text-sm text-ascent-1 px-4 py-3 placeholder:text-[#666] ${styles}`}
             aria-invalid={error ? "true" : "false"}
+            {...register}
           />
         </div>
         {error && (
