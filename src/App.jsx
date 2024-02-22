@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 
 function Layout() {
   const { user } = useSelector((store) => store.user);
-  console.log(user);
+  // console.log(user);
   const location = useLocation();
   return user?.token ? (
     <Outlet />
