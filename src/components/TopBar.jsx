@@ -1,13 +1,13 @@
 import { TbSocial } from "react-icons/tb";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import TextInput from "./TextInput";
-import CustomButton from "./CustomButton";
 import { useForm } from "react-hook-form";
 import { BsMoon, BsSun } from "react-icons/bs";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { setTheme } from "../redux/themeSlice";
 import { logout } from "../redux/userSlice";
+import CustomButton from "./CustomButton";
+import TextInput from "./TextInput";
 
 const TopBar = () => {
   const { theme } = useSelector((store) => store.theme);
@@ -25,7 +25,7 @@ const TopBar = () => {
   };
 
   return (
-    <div className="topbar w-full flex items-center justify-between py-3 md:py-6 px-4 bg-primary">
+    <div className="topbar w-full flex items-center justify-between py-3 md:py-6 px-4 bg-primary rounded-lg">
       <Link to="/" className="flex gap-2 items-center">
         <div className="p-1 md:p-2 bg-[#065ad8] rounded text-white">
           <TbSocial />
