@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { ProfileCard, TopBar } from "../components";
+import { FriendsCard, ProfileCard, TopBar } from "../components";
 
 const Home = () => {
   const { user } = useSelector((store) => store.user);
@@ -11,6 +11,7 @@ const Home = () => {
         {/* LEFT */}
         <div className="hidden w-1/3 lg:w-1/4 h-full md:flex flex-col gap-6 overflow-y-auto">
           <ProfileCard user={user} />
+          <FriendsCard friends={user?.friends} />
         </div>
         {/* CENTER */}
         <div></div>
