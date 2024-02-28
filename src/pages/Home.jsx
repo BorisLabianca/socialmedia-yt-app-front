@@ -1,15 +1,35 @@
 import { useSelector } from "react-redux";
-import { CustomButton, FriendsCard, ProfileCard, TopBar } from "../components";
+import {
+  CustomButton,
+  FriendsCard,
+  Loading,
+  ProfileCard,
+  TextInput,
+  TopBar,
+} from "../components";
 import { useState } from "react";
-import { requests, suggest } from "../assets/data";
+import { posts, requests, suggest } from "../assets/data";
 import { Link } from "react-router-dom";
 import { noProfile } from "../assets";
-import { BsPersonFillAdd } from "react-icons/bs";
+import { BsFiletypeGif, BsPersonFillAdd } from "react-icons/bs";
+import { BiImages, BiSolidVideo } from "react-icons/bi";
+import { useForm } from "react-hook-form";
 
 const Home = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { user } = useSelector((store) => store.user);
   const [friendRequest, setFriendRequest] = useState(requests);
   const [suggestedFriends, setSuggestedFriends] = useState(suggest);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [file, setFile] = useState(null);
+  const [posting, setPosting] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const handlePostSubmit = async (data) => {};
 
   return (
     <div className="w-full px-0 lg:px-10 pb-20 2xl:px-40 bg-bgColor lg:rounded-lg h-screen overflow-hidden">
@@ -21,7 +41,108 @@ const Home = () => {
           <FriendsCard friends={user?.friends} />
         </div>
         {/* CENTER */}
-        <div className="flex-1 bg-primary h-full px-4 flex-col gap-6 overflow-y-auto"></div>
+        <div className="flex-1 bg-primary h-full px-4 flex-col gap-6 overflow-y-auto rounded-lg">
+          <form
+            className="bg-primary px-4 rounded-lg"
+            onSubmit={handleSubmit(handlePostSubmit)}
+          >
+            <div className="w-full flex items-center gap-2 py-4 border-b border-[#66666645]">
+              <img
+                src={user?.profileUrl || noProfile}
+                alt={`${user?.firstName}' avatar`}
+                className="w-14 h-14 rounded-full object-cover"
+              />
+              <TextInput
+                styles="w-full rounded-full py-5"
+                placeholder="What's on your mind..."
+                name="description"
+                register={register("description", {
+                  required: "Write something in your post.",
+                })}
+                error={errors.description ? errors.description.message : ""}
+              />
+            </div>
+            {errorMessage?.message && (
+              <span
+                role="alert"
+                className={`text-sm ${
+                  errorMessage?.status === "failed"
+                    ? "text-[#f64949fe]"
+                    : "text-[#2ba150fe]"
+                } mt-0.5`}
+              ></span>
+            )}
+            <div className="flex items-center justify-between py-4">
+              <label
+                htmlFor="imgUpload"
+                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+              >
+                <input
+                  type="file"
+                  className="hidden"
+                  id="imgUpload"
+                  data-max-size="5120"
+                  accept=".jpg, .png, .jpeg"
+                  onChange={(event) => setFile(event.target.files[0])}
+                />
+                <BiImages />
+                <span>Image</span>
+              </label>
+              <label
+                htmlFor="videoUpload"
+                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+              >
+                <input
+                  type="file"
+                  className="hidden"
+                  id="videoUpload"
+                  data-max-size="5120"
+                  accept=".mp4, .wav"
+                  onChange={(event) => setFile(event.target.files[0])}
+                />
+                <BiSolidVideo />
+                <span>Video</span>
+              </label>
+              <label
+                htmlFor="vgifUpload"
+                className="flex items-center gap-1 text-base text-ascent-2 hover:text-ascent-1 cursor-pointer"
+              >
+                <input
+                  type="file"
+                  className="hidden"
+                  id="vgifUpload"
+                  data-max-size="5120"
+                  accept=".gif"
+                  onChange={(event) => setFile(event.target.files[0])}
+                />
+                <BsFiletypeGif />
+                <span>GIF</span>
+              </label>
+              <div>
+                {posting ? (
+                  <Loading />
+                ) : (
+                  <CustomButton
+                    type="submit"
+                    title="post"
+                    containerStyles="bg-[#0444a4] text-white py-1 px-6 rounded-full font-semibold text-sm"
+                  />
+                )}
+              </div>
+            </div>
+          </form>
+          {loading ? (
+            <Loading />
+          ) : posts?.length > 0 ? (
+            posts?.map((post) => {
+              return <div key={post._id}></div>;
+            })
+          ) : (
+            <div className="flex w-full h-full items-center justify-center">
+              <p className="text-lg text-ascent-2">No posts available</p>
+            </div>
+          )}
+        </div>
         {/* RIGHT */}
         <div className="hidden w-1/4 h-full lg:flex flex-col gap-8 overflow-y-auto">
           {/* FRIEND REQUEST */}
