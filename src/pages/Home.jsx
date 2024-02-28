@@ -3,6 +3,7 @@ import {
   CustomButton,
   FriendsCard,
   Loading,
+  PostCard,
   ProfileCard,
   TextInput,
   TopBar,
@@ -135,7 +136,15 @@ const Home = () => {
             <Loading />
           ) : posts?.length > 0 ? (
             posts?.map((post) => {
-              return <div key={post._id}></div>;
+              return (
+                <PostCard
+                  key={post?._id}
+                  post={post}
+                  user={user}
+                  deletePost={() => {}}
+                  likePost={() => {}}
+                />
+              );
             })
           ) : (
             <div className="flex w-full h-full items-center justify-center">
