@@ -6,6 +6,7 @@ import TopBar from "./TopBar";
 import FriendsCard from "./FriendsCard";
 import PostCard from "./PostCard";
 import CommentForm from "./CommentForm";
+import ReplyCard from "./ReplyCard";
 
 export {
   TextInput,
@@ -16,4 +17,5 @@ export {
   FriendsCard,
   PostCard,
   CommentForm,
+  ReplyCard,
 };

@@ -7,6 +7,7 @@ import { MdOutlineDeleteOutline } from "react-icons/md";
 import CommentForm from "./CommentForm";
 import Loading from "./Loading";
 import { postComments } from "../assets/data";
+import ReplyCard from "./ReplyCard";
 
 const PostCard = ({ post, user, deletePost, likePost }) => {
   const [showAll, setShowAll] = useState(0);
@@ -22,6 +23,10 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
     setComments(postComments);
     setLoading(false);
   };
+
+  const handleLike = async () => {};
+
+  console.log(replyComments);
 
   return (
     <div className="mb-2 bg-primary p-4 rounded-xl">
@@ -158,7 +163,15 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
                       </p>
                       <span
                         className="text-blue cursor-pointer"
-                        onClick={() => setReplyComments(comment?._id)}
+                        onClick={() =>
+                          setReplyComments(
+                            replyComments === 0
+                              ? comment?._id
+                              : replyComments !== comment?._id
+                              ? comment?._id
+                              : 0
+                          )
+                        }
                       >
                         Reply
                       </span>
@@ -173,6 +186,38 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
                     )}
                   </div>
                   {/* REPLIES */}
+                  <div className="py-2 px-8 mt-6">
+                    {comment?.replies?.length > 0 && (
+                      <p
+                        className="text-base text-ascent-1 cursor-pointer"
+                        onClick={() =>
+                          setShowReply(
+                            showReply === comment?.replies?._id
+                              ? 0
+                              : comment?.replies?._id
+                          )
+                        }
+                      >
+                        Show Replie{comment?.replies?.length > 1 && "s"} (
+                        {comment?.replies?.length})
+                      </p>
+                    )}
+                    {showReply === comment?.replies?._id &&
+                      comment?.replies?.map((reply) => {
+                        return (
+                          <ReplyCard
+                            user={user}
+                            reply={reply}
+                            key={reply?._id}
+                            handleLike={() =>
+                              handleLike(
+                                `/post/like-comment/${comment?._id}/${reply?._id}`
+                              )
+                            }
+                          />
+                        );
+                      })}
+                  </div>
                 </div>
               );
             })
