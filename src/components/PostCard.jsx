@@ -4,6 +4,7 @@ import { noProfile } from "../assets";
 import moment from "moment";
 import { BiComment, BiLike, BiSolidLike } from "react-icons/bi";
 import { MdOutlineDeleteOutline } from "react-icons/md";
+import CommentForm from "./CommentForm";
 
 const PostCard = ({ post, user, deletePost, likePost }) => {
   const [showAll, setShowAll] = useState(0);
@@ -100,6 +101,16 @@ const PostCard = ({ post, user, deletePost, likePost }) => {
           </div>
         )}
       </div>
+      {/* COMMENTS */}
+      {showComments === post?._id && (
+        <div className="w-full mt-4 border-t border-[#66666645] pt-4">
+          <CommentForm
+            user={user}
+            id={post?._id}
+            getComments={() => getComments(post?._id)}
+          />
+        </div>
+      )}
     </div>
   );
 };

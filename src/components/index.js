@@ -5,6 +5,7 @@ import ProfileCard from "./ProfileCard";
 import TopBar from "./TopBar";
 import FriendsCard from "./FriendsCard";
 import PostCard from "./PostCard";
+import CommentForm from "./CommentForm";
 
 export {
   TextInput,
@@ -14,4 +15,5 @@ export {
   TopBar,
   FriendsCard,
   PostCard,
+  CommentForm,
 };
