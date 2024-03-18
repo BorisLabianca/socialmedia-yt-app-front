@@ -31,7 +31,7 @@ const TopBar = () => {
           <TbSocial />
         </div>
         <span className="text-xl md:text-2xl font-semibold text-[#065ad8]">
-          MyBlogApp
+          MyBlogPage
         </span>
       </Link>
       <form
