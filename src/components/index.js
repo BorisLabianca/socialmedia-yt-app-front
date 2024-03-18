@@ -7,6 +7,7 @@ import FriendsCard from "./FriendsCard";
 import PostCard from "./PostCard";
 import CommentForm from "./CommentForm";
 import ReplyCard from "./ReplyCard";
+import EditProfile from "./EditProfile";
 
 export {
   TextInput,
@@ -18,4 +19,5 @@ export {
   PostCard,
   CommentForm,
   ReplyCard,
+  EditProfile,
 };
